@@ -1,6 +1,6 @@
 ---
 title: "Tutorial: SVM Classifiers with Scikit-Learn"
-author: "Ariadne Letrou"
+author: "Ari"
 date: "2024-05-24"
 format: html
 image: iris.jpg
