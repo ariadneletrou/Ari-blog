@@ -18,7 +18,7 @@ Classification is essential in machine learning, as it allows data to be grouped
 
 ![Figure from: "Build Email Spam Classification Model Using Python and SpaCy" by Divy Shah, Medium Blog post](images/email_classifier.jpg)
 
-Classification can also reveal complex relationships between classes and patterns in the data. For example, in the context of fMRI data, classification helps researchers understand the relationship between neural activity patterns and cognitive or behavioral phenomena. Imagine we are showing a subject pictures of faces, scenes, and objects while recording their brain activity using fMRI. We know which picture was shown at each time point, allowing us to label the type of stimulus. The brain signals from each time point represent the features of that particular picture. With this labeled data, we can train a classifier to distinguish between images of faces, scenes, and objects. After training the classifier, we need to evaluate how well it can predict the category of an image it hasn't seen before, like a new picture of a face. To verify this, we test it on a different set of images and measure its prediction accuracy. If it can predict the correct category more often than random guessing (which would yield a 33.33% accuracy with three classes), we can infer that the classifier has successfully learned to decode the brain signals associated with each stimulus type. If you are interested in learning more about classification for fMRI data, I would recommend checking out the [tutorials](https://brainiak.org/tutorials/) from the Brain Imaging Analysis toolKit (BrainIAK).
+Classification can also reveal complex relationships between classes and patterns in the data. For example, in the context of fMRI data, classification helps researchers understand the relationship between neural activity patterns and cognitive or behavioral phenomena. Imagine we are showing a subject pictures of faces, scenes, and objects while recording their brain activity using fMRI. We know which picture was shown at each time point, allowing us to label the type of stimulus. With this labeled data, we can train a classifier to distinguish between images of faces, scenes, and objects. After training the classifier, we need to evaluate how well it can predict the category of an image it hasn't seen before, like a new picture of a face. To verify this, we test it on a different set of images and measure its prediction accuracy. If it can predict the correct category more often than random guessing (which would yield a 33.33% accuracy with three classes), we can infer that the classifier has successfully learned to decode the brain activity associated with each stimulus type. If you are interested in learning more about classification for fMRI data, I would recommend checking out the [tutorials](https://brainiak.org/tutorials/) from the Brain Imaging Analysis toolKit (BrainIAK).
 
 ![Figure from: Smith, K. (2013). Brain decoding: Reading minds. Nature, 502(7472), 428-430.](images/brain_decoding.jpg)
 
@@ -26,7 +26,7 @@ To gain some intuitions on how to use SVMs, we will walk through an example anal
 
 # Setup
 
-Before we dive into our example, ensure you have `scikit-learn` installed by following the [installation instructions](https://scikit-learn.org/stable/install.html) specific to your operating system. You will also need to install the [`matplotlib`](https://matplotlib.org/stable/users/installing/index.html), [`pandas`](https://pandas.pydata.org/getting_started.html), [`seaborn`](https://seaborn.pydata.org/installing.html), [`jupyter`](https://pypi.org/project/jupyter/), and [`tabulate`](https://pypi.org/project/tabulate/) packages for data visualization. For most systems, running the below command in your bash shell should effectively download both packages:
+Before we dive into our example, ensure you have `scikit-learn` installed by following the [installation instructions](https://scikit-learn.org/stable/install.html) specific to your operating system. You will also need to install the [`matplotlib`](https://matplotlib.org/stable/users/installing/index.html), [`pandas`](https://pandas.pydata.org/getting_started.html), [`seaborn`](https://seaborn.pydata.org/installing.html), [`jupyter`](https://pypi.org/project/jupyter/), and [`tabulate`](https://pypi.org/project/tabulate/) packages for data visualization. For most systems, running the below command in your bash shell should effectively download the packages:
 
 ```{bash}
 pip install scikit-learn matplotlib pandas seaborn jupyter tabulate
@@ -50,7 +50,7 @@ from tabulate import tabulate
 
 # Dataset preparation
 
-We are ready to run a classification analysis on the [Iris dataset](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html).
+Now, we are ready to run a classification analysis on the [Iris dataset](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html).
 
 The Iris dataset contains 150 samples, with each sample representing one of three species of iris flowers: Setosa, Versicolor, and Virginica. Each flower is described by four features: sepal length, sepal width, petal length, and petal width. The goal is to classify each flower into one of the three species based on these measurements. The simplicity and clear separability of the classes make this dataset an excellent choice for demonstrating the power and effectiveness of SVM classifiers.
 
@@ -81,7 +81,7 @@ With the data prepared, it's time to train our SVM model! We will use the SVC (S
 
 The training phase is crucial in machine learning. For SVM classifiers, training involves finding the best hyperplane that separates the classes in the feature space as distinctly as possible. Here's a step-by-step breakdown of this process:
 
-(1) **Initialize the Classifier**: We begin by initializing the SVM classifier. In this example, we use a linear kernel. The kernel choice depends on the dataset. Linear kernels are effective when there is a linear separability between the classes. However, for more complex datasets, other kernels such as polynomial or radial basis function (RBF) might be more suitable. We also specify a cost function (C), which is used to control the trade-off between achieving a low training error and maintaining a simpler, more generalizable decision boundary. A higher C value penalizes misclassifications more heavily, resulting in a narrower margin and fitting closely to the training data. This can help capture subtle patterns but also risks overfitting. A lower C value, however, softens the penalty for misclassifications, allowing more training points to fall within the margin, leading to a wider, more generalized decision boundary that is better at handling noise or variability in the data.
+(1) **Initialize the Classifier**: We begin by initializing the SVM classifier. In this example, we use a linear kernel. The kernel choice depends on the dataset. Linear kernels are effective when there is a linear separability between the classes. However, for more complex datasets, other kernels such as polynomial or radial basis function (RBF) might be more suitable. We also specify a cost function (C), which is used to control the trade-off between achieving a low training error and maintaining a simpler, more generalizable decision boundary. A higher C value penalizes misclassifications more heavily, resulting in a narrower margin and fitting closely to the training data. This can help capture subtle patterns but also risks overfitting. A lower C value softens the penalty for misclassifications, allowing more training points to fall within the margin. This leads to a wider, more generalized decision boundary that is better at handling noise or variability in the data.
 (2) **Training the Model**: This step involves fitting the classifier to the training data. The `fit` method of the SVC class takes the training data and the corresponding labels and finds the coefficients for the hyperplane that best separates the data according to the chosen kernel. SVM uses quadratic programming to optimize the separation margin. This involves solving a convex optimization problem to find the coefficients that maximize the margin while minimizing the classification error.
 
 ```{python}
@@ -102,30 +102,38 @@ How can we tell how well our model is performing?
 
 **Classication report:** A classification report provides a summary of key evaluation metrics such as precision, recall, and F1 score for each class.
 
--   **Precision**: Out of all predictions made for a specific class, it represents how many were correct. It's calculated as True Positives / (True Positives + False Positives).
--   **Recall**: The proportion of actual class samples that the model correctly identified. Calculated as True Positives / (True Positives + False Negatives).
+-   **Precision**: Precision is the ratio of correctly predicted positive observations to the total predicted positives. It essentially answers the question: "Out of all the items labeled as a specific class, how many actually belong to that class?" Precision is calculated as True Positives / (True Positives + False Positives). High precision therefore corresponds to a low rate of false positives.
+-   **Recall**: The proportion of actual class samples that the model correctly identified. Recall is calculated as True Positives / (True Positives + False Negatives). High recall corresponds to a low rate of false negatives.
 -   **F1 Score**: The harmonic mean of precision and recall, providing a balanced metric that considers both measures.
 -   **Support**: The number of occurrences of each class in the test set.
+
+In our case, the classification report shows a very high-performing model across all classes, with overall metrics close to 1, indicating that the classifier is both precise and robust in identifying the classes from the data.
 
 ```{python}
 # Predict the labels for the test data
 y_pred = svc_model.predict(X_test)
 
-# Create a pandas DataFrame from the classification report and confusion matrix
+# Create a pandas DataFrame from the classification report
 report = classification_report(y_test, y_pred, output_dict=True)
 report_df = pd.DataFrame(report).transpose()
+species_names = ["setosa", "versicolor", "virginica", "", "", ""]
+report_df.insert(0, 'Species', species_names)
+
 print("Classification Report:")
 print(tabulate(report_df, headers='keys', tablefmt='pipe', showindex=True))
 ```
 
-**Confusion Matrix**: A confusion matrix shows the number of correct and incorrect predictions for each class, providing insight into which classes are being confused by the model.
+**Confusion Matrix**: A confusion matrix shows the number of correct and incorrect predictions for each class, providing insight into which classes are being confused by the model. The confusion matrix has the following information:
 
--   **True Positives (TP)**: Correct predictions for a class.
--   **False Positives (FP)**: Incorrectly predicted as a particular class.
--   **True Negatives (TN)**: Correctly predicted as not belonging to a class.
--   **False Negatives (FN)**: Incorrectly predicted as not belonging to a class.
+-   **True Positives (TP)**: Correct predictions for a class (e.g., class 0 as class 0).
+-   **False Positives (FP)**: Incorrectly predicted as a particular class (e.g., predicting class 1 or 2 as class 0).
+-   **True Negatives (TN)**: Correctly predicted as not belonging to a class (e.g., class 1 and 2 are not class 0 and are predicted as not class 0).
+-   **False Negatives (FN)**: Incorrectly predicted as not belonging to a class (e.g., predicting class 0 as class 1 or 2).
+
+As a first pass, it is important to check the diagonal of the confusion matrix, as it plays a crucial role in evaluating the performance of our classifier. Each element along the diagonal represents the number of instances that were correctly classified for each respective class, providing a good indicator for overall accuracy. 
 
 ```{python}
+# Create a pandas DataFrame from the confusion matrix
 conf_matrix = confusion_matrix(y_test, y_pred)
 conf_matrix_df = pd.DataFrame(conf_matrix, index=iris.target_names, columns=iris.target_names)
 
@@ -145,6 +153,8 @@ Finally, let's visualize the decision boundary for two features using a scatter 
 
 For simplicity, we'll visualize the decision boundary using only two features. This helps make the visualization easier to interpret, even though SVMs work better with all features.
 
+Even in 2 dimensions, we see that our classifier performs pretty well! There is some cross-over between the versicolor and verginica species. However, it is likely that these classes are more separable in higher dimensions.  
+
 ```{python}
 # Use only the first two features for visualization purposes
 X_vis = X_train[:, :2]
@@ -163,9 +173,15 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02), np.arange(y_min, y_max, 0.02
 Z = svc_vis.predict(np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
 
+
 # Plot decision boundaries and data points
 plt.contourf(xx, yy, Z, alpha=0.3)
-plt.scatter(X_test_vis[:, 0], X_test_vis[:, 1], c=y_test, s=50, edgecolor='k')
+scatter = plt.scatter(X_test_vis[:, 0], X_test_vis[:, 1], c=y_test, s=50, edgecolor='k')
+
+# Create a legend
+class_names = ["setosa", "versicolor", "virginica"]
+plt.legend(handles=scatter.legend_elements()[0], labels=class_names, title="Species")
+
 plt.xlabel("Feature 1")
 plt.ylabel("Feature 2")
 plt.title("SVM Decision Boundary (2D Visualization)")

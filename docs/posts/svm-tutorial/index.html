@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption class="figure-caption">Figure from: “Build Email Spam Classification Model Using Python and SpaCy” by Divy Shah, Medium Blog post</figcaption>
 </figure>
 </div>
-<p>Classification can also reveal complex relationships between classes and patterns in the data. For example, in the context of fMRI data, classification helps researchers understand the relationship between neural activity patterns and cognitive or behavioral phenomena. Imagine we are showing a subject pictures of faces, scenes, and objects while recording their brain activity using fMRI. We know which picture was shown at each time point, allowing us to label the type of stimulus. The brain signals from each time point represent the features of that particular picture. With this labeled data, we can train a classifier to distinguish between images of faces, scenes, and objects. After training the classifier, we need to evaluate how well it can predict the category of an image it hasn’t seen before, like a new picture of a face. To verify this, we test it on a different set of images and measure its prediction accuracy. If it can predict the correct category more often than random guessing (which would yield a 33.33% accuracy with three classes), we can infer that the classifier has successfully learned to decode the brain signals associated with each stimulus type. If you are interested in learning more about classification for fMRI data, I would recommend checking out the <a href="https://brainiak.org/tutorials/">tutorials</a> from the Brain Imaging Analysis toolKit (BrainIAK).</p>
+<p>Classification can also reveal complex relationships between classes and patterns in the data. For example, in the context of fMRI data, classification helps researchers understand the relationship between neural activity patterns and cognitive or behavioral phenomena. Imagine we are showing a subject pictures of faces, scenes, and objects while recording their brain activity using fMRI. We know which picture was shown at each time point, allowing us to label the type of stimulus. With this labeled data, we can train a classifier to distinguish between images of faces, scenes, and objects. After training the classifier, we need to evaluate how well it can predict the category of an image it hasn’t seen before, like a new picture of a face. To verify this, we test it on a different set of images and measure its prediction accuracy. If it can predict the correct category more often than random guessing (which would yield a 33.33% accuracy with three classes), we can infer that the classifier has successfully learned to decode the brain activity associated with each stimulus type. If you are interested in learning more about classification for fMRI data, I would recommend checking out the <a href="https://brainiak.org/tutorials/">tutorials</a> from the Brain Imaging Analysis toolKit (BrainIAK).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/brain_decoding.jpg" class="img-fluid figure-img"></p>
@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setup" class="level1">
 <h1>Setup</h1>
-<p>Before we dive into our example, ensure you have <code>scikit-learn</code> installed by following the <a href="https://scikit-learn.org/stable/install.html">installation instructions</a> specific to your operating system. You will also need to install the <a href="https://matplotlib.org/stable/users/installing/index.html"><code>matplotlib</code></a>, <a href="https://pandas.pydata.org/getting_started.html"><code>pandas</code></a>, <a href="https://seaborn.pydata.org/installing.html"><code>seaborn</code></a>, <a href="https://pypi.org/project/jupyter/"><code>jupyter</code></a>, and <a href="https://pypi.org/project/tabulate/"><code>tabulate</code></a> packages for data visualization. For most systems, running the below command in your bash shell should effectively download both packages:</p>
+<p>Before we dive into our example, ensure you have <code>scikit-learn</code> installed by following the <a href="https://scikit-learn.org/stable/install.html">installation instructions</a> specific to your operating system. You will also need to install the <a href="https://matplotlib.org/stable/users/installing/index.html"><code>matplotlib</code></a>, <a href="https://pandas.pydata.org/getting_started.html"><code>pandas</code></a>, <a href="https://seaborn.pydata.org/installing.html"><code>seaborn</code></a>, <a href="https://pypi.org/project/jupyter/"><code>jupyter</code></a>, and <a href="https://pypi.org/project/tabulate/"><code>tabulate</code></a> packages for data visualization. For most systems, running the below command in your bash shell should effectively download the packages:</p>
 <pre class="{bash}"><code>pip install scikit-learn matplotlib pandas seaborn jupyter tabulate</code></pre>
 <p>Next, we need to import the required libraries in Python:</p>
 <div class="cell" data-execution_count="1">
@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dataset-preparation" class="level1">
 <h1>Dataset preparation</h1>
-<p>We are ready to run a classification analysis on the <a href="https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html">Iris dataset</a>.</p>
+<p>Now, we are ready to run a classification analysis on the <a href="https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html">Iris dataset</a>.</p>
 <p>The Iris dataset contains 150 samples, with each sample representing one of three species of iris flowers: Setosa, Versicolor, and Virginica. Each flower is described by four features: sepal length, sepal width, petal length, and petal width. The goal is to classify each flower into one of the three species based on these measurements. The simplicity and clear separability of the classes make this dataset an excellent choice for demonstrating the power and effectiveness of SVM classifiers.</p>
 <p>Our goal will be to classify different species of iris flowers based on their features.</p>
 <p>To ensure our classification model generalizes well to unseen data, we need to evaluate its performance on a separate subset of the data that isn’t used for training. To do this, we split the dataset into a training set and a testing set. In the provided code, <code>train_test_split</code> is used to randomly divide the data by allocating 70% to the training set (<code>X_train</code> and <code>y_train</code>) and 30% to the testing set (<code>X_test</code> and <code>y_test</code>). The <code>random_state</code> parameter ensures that the split is reproducible by producing the same random results each time.</p>
@@ -237,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>With the data prepared, it’s time to train our SVM model! We will use the SVC (Support Vector Classification) class from <code>scikit-learn</code>.</p>
 <p>The training phase is crucial in machine learning. For SVM classifiers, training involves finding the best hyperplane that separates the classes in the feature space as distinctly as possible. Here’s a step-by-step breakdown of this process:</p>
 <ol type="1">
-<li><strong>Initialize the Classifier</strong>: We begin by initializing the SVM classifier. In this example, we use a linear kernel. The kernel choice depends on the dataset. Linear kernels are effective when there is a linear separability between the classes. However, for more complex datasets, other kernels such as polynomial or radial basis function (RBF) might be more suitable. We also specify a cost function (C), which is used to control the trade-off between achieving a low training error and maintaining a simpler, more generalizable decision boundary. A higher C value penalizes misclassifications more heavily, resulting in a narrower margin and fitting closely to the training data. This can help capture subtle patterns but also risks overfitting. A lower C value, however, softens the penalty for misclassifications, allowing more training points to fall within the margin, leading to a wider, more generalized decision boundary that is better at handling noise or variability in the data.</li>
+<li><strong>Initialize the Classifier</strong>: We begin by initializing the SVM classifier. In this example, we use a linear kernel. The kernel choice depends on the dataset. Linear kernels are effective when there is a linear separability between the classes. However, for more complex datasets, other kernels such as polynomial or radial basis function (RBF) might be more suitable. We also specify a cost function (C), which is used to control the trade-off between achieving a low training error and maintaining a simpler, more generalizable decision boundary. A higher C value penalizes misclassifications more heavily, resulting in a narrower margin and fitting closely to the training data. This can help capture subtle patterns but also risks overfitting. A lower C value softens the penalty for misclassifications, allowing more training points to fall within the margin. This leads to a wider, more generalized decision boundary that is better at handling noise or variability in the data.</li>
 <li><strong>Training the Model</strong>: This step involves fitting the classifier to the training data. The <code>fit</code> method of the SVC class takes the training data and the corresponding labels and finds the coefficients for the hyperplane that best separates the data according to the chosen kernel. SVM uses quadratic programming to optimize the separation margin. This involves solving a convex optimization problem to find the coefficients that maximize the margin while minimizing the classification error.</li>
 </ol>
 <div class="cell" data-result="hide" data-execution_count="3">
@@ -246,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the training data</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>svc_model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>SVC(kernel='linear')</code></pre>
 </div>
 </div>
@@ -257,51 +257,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>How can we tell how well our model is performing?</p>
 <p><strong>Classication report:</strong> A classification report provides a summary of key evaluation metrics such as precision, recall, and F1 score for each class.</p>
 <ul>
-<li><strong>Precision</strong>: Out of all predictions made for a specific class, it represents how many were correct. It’s calculated as True Positives / (True Positives + False Positives).</li>
-<li><strong>Recall</strong>: The proportion of actual class samples that the model correctly identified. Calculated as True Positives / (True Positives + False Negatives).</li>
+<li><strong>Precision</strong>: Precision is the ratio of correctly predicted positive observations to the total predicted positives. It essentially answers the question: “Out of all the items labeled as a specific class, how many actually belong to that class?” Precision is calculated as True Positives / (True Positives + False Positives). High precision therefore corresponds to a low rate of false positives.</li>
+<li><strong>Recall</strong>: The proportion of actual class samples that the model correctly identified. Recall is calculated as True Positives / (True Positives + False Negatives). High recall corresponds to a low rate of false negatives.</li>
 <li><strong>F1 Score</strong>: The harmonic mean of precision and recall, providing a balanced metric that considers both measures.</li>
 <li><strong>Support</strong>: The number of occurrences of each class in the test set.</li>
 </ul>
+<p>In our case, the classification report shows a very high-performing model across all classes, with overall metrics close to 1, indicating that the classifier is both precise and robust in identifying the classes from the data.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict the labels for the test data</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> svc_model.predict(X_test)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a pandas DataFrame from the classification report and confusion matrix</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a pandas DataFrame from the classification report</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>report <span class="op">=</span> classification_report(y_test, y_pred, output_dict<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>report_df <span class="op">=</span> pd.DataFrame(report).transpose()</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Classification Report:"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(report_df, headers<span class="op">=</span><span class="st">'keys'</span>, tablefmt<span class="op">=</span><span class="st">'pipe'</span>, showindex<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>species_names <span class="op">=</span> [<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>report_df.insert(<span class="dv">0</span>, <span class="st">'Species'</span>, species_names)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Classification Report:"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tabulate(report_df, headers<span class="op">=</span><span class="st">'keys'</span>, tablefmt<span class="op">=</span><span class="st">'pipe'</span>, showindex<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Classification Report:
-|              |   precision |   recall |   f1-score |   support |
-|:-------------|------------:|---------:|-----------:|----------:|
-| 0            |    1        | 1        |   1        | 19        |
-| 1            |    1        | 0.923077 |   0.96     | 13        |
-| 2            |    0.928571 | 1        |   0.962963 | 13        |
-| accuracy     |    0.977778 | 0.977778 |   0.977778 |  0.977778 |
-| macro avg    |    0.97619  | 0.974359 |   0.974321 | 45        |
-| weighted avg |    0.979365 | 0.977778 |   0.977745 | 45        |</code></pre>
+|              | Species    |   precision |   recall |   f1-score |   support |
+|:-------------|:-----------|------------:|---------:|-----------:|----------:|
+| 0            | setosa     |    1        | 1        |   1        | 19        |
+| 1            | versicolor |    1        | 0.923077 |   0.96     | 13        |
+| 2            | virginica  |    0.928571 | 1        |   0.962963 | 13        |
+| accuracy     |            |    0.977778 | 0.977778 |   0.977778 |  0.977778 |
+| macro avg    |            |    0.97619  | 0.974359 |   0.974321 | 45        |
+| weighted avg |            |    0.979365 | 0.977778 |   0.977745 | 45        |</code></pre>
 </div>
 </div>
-<p><strong>Confusion Matrix</strong>: A confusion matrix shows the number of correct and incorrect predictions for each class, providing insight into which classes are being confused by the model.</p>
+<p><strong>Confusion Matrix</strong>: A confusion matrix shows the number of correct and incorrect predictions for each class, providing insight into which classes are being confused by the model. The confusion matrix has the following information:</p>
 <ul>
-<li><strong>True Positives (TP)</strong>: Correct predictions for a class.</li>
-<li><strong>False Positives (FP)</strong>: Incorrectly predicted as a particular class.</li>
-<li><strong>True Negatives (TN)</strong>: Correctly predicted as not belonging to a class.</li>
-<li><strong>False Negatives (FN)</strong>: Incorrectly predicted as not belonging to a class.</li>
+<li><strong>True Positives (TP)</strong>: Correct predictions for a class (e.g., class 0 as class 0).</li>
+<li><strong>False Positives (FP)</strong>: Incorrectly predicted as a particular class (e.g., predicting class 1 or 2 as class 0).</li>
+<li><strong>True Negatives (TN)</strong>: Correctly predicted as not belonging to a class (e.g., class 1 and 2 are not class 0 and are predicted as not class 0).</li>
+<li><strong>False Negatives (FN)</strong>: Incorrectly predicted as not belonging to a class (e.g., predicting class 0 as class 1 or 2).</li>
 </ul>
+<p>As a first pass, it is important to check the diagonal of the confusion matrix, as it plays a crucial role in evaluating the performance of our classifier. Each element along the diagonal represents the number of instances that were correctly classified for each respective class, providing a good indicator for overall accuracy.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>conf_matrix_df <span class="op">=</span> pd.DataFrame(conf_matrix, index<span class="op">=</span>iris.target_names, columns<span class="op">=</span>iris.target_names)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the confusion matrix as a heatmap using seaborn</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.plot(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(conf_matrix_df, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Blues"</span>, cbar<span class="op">=</span><span class="va">False</span>, square<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Actual"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted"</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix"</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a pandas DataFrame from the confusion matrix</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>conf_matrix_df <span class="op">=</span> pd.DataFrame(conf_matrix, index<span class="op">=</span>iris.target_names, columns<span class="op">=</span>iris.target_names)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the confusion matrix as a heatmap using seaborn</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.plot(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sns.heatmap(conf_matrix_df, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Blues"</span>, cbar<span class="op">=</span><span class="va">False</span>, square<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Actual"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Confusion Matrix"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-6-output-1.png" width="448" height="468"></p>
 </div>
@@ -311,6 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Decision boundary</h1>
 <p>Finally, let’s visualize the decision boundary for two features using a scatter plot. Visualizing this boundary allows us to understand the classifier’s decision-making process, even though SVMs generally work best with higher-dimensional data.</p>
 <p>For simplicity, we’ll visualize the decision boundary using only two features. This helps make the visualization easier to interpret, even though SVMs work better with all features.</p>
+<p>Even in 2 dimensions, we see that our classifier performs pretty well! There is some cross-over between the versicolor and verginica species. However, it is likely that these classes are more separable in higher dimensions.</p>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use only the first two features for visualization purposes</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X_vis <span class="op">=</span> X_train[:, :<span class="dv">2</span>]</span>
@@ -329,13 +336,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> svc_vis.predict(np.c_[xx.ravel(), yy.ravel()])</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Z.reshape(xx.shape)</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot decision boundaries and data points</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>plt.scatter(X_test_vis[:, <span class="dv">0</span>], X_test_vis[:, <span class="dv">1</span>], c<span class="op">=</span>y_test, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Feature 1"</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Feature 2"</span>)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"SVM Decision Boundary (2D Visualization)"</span>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot decision boundaries and data points</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> plt.scatter(X_test_vis[:, <span class="dv">0</span>], X_test_vis[:, <span class="dv">1</span>], c<span class="op">=</span>y_test, s<span class="op">=</span><span class="dv">50</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a legend</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>class_names <span class="op">=</span> [<span class="st">"setosa"</span>, <span class="st">"versicolor"</span>, <span class="st">"virginica"</span>]</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>scatter.legend_elements()[<span class="dv">0</span>], labels<span class="op">=</span>class_names, title<span class="op">=</span><span class="st">"Species"</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Feature 1"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Feature 2"</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"SVM Decision Boundary (2D Visualization)"</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-7-output-1.png" width="587" height="449"></p>
 </div>
