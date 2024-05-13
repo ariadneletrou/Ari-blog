@@ -1,0 +1,16 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Ariadne Letrou's PSY-504 Blog"
+  navbar:
+    right:
+      - about.qmd
+format:
+  html:
+    theme: darkly
+    css: styles.css
+
+editor: visual
+
